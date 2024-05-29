@@ -10,11 +10,8 @@
 -->
 
 <template>
-  <div
-    class="site card hoverable editingSite"
-  >
+  <div class="site card hoverable editingSite">
     <div class="card-content">
-
       <h2 class="card-title">{{ translate('SitesManager_AddMeasurable') }}</h2>
 
       <div class="form-group row">
@@ -27,7 +24,14 @@
           />
           <label>{{ translate('General_Name') }}</label>
         </div>
-        <div class="col s12 m6"></div>
+        <div class="col s12 m6 input-field">
+          <input
+            type="text"
+            v-model="site.main_url"
+            :placeholder="translate('SitesManager_Urls')"
+          />
+          <label>{{ translate('SitesManager_Urls') }}</label>
+        </div>
       </div>
 
       <div class="editingSiteFooter">
@@ -63,7 +67,7 @@ interface SiteFieldsState {
 }
 
 interface CreateEditSiteResponse {
-  value: string|number;
+  value: string | number;
 }
 
 export default defineComponent({
@@ -80,6 +84,7 @@ export default defineComponent({
         },
         {
           siteName: this.site.name,
+          siteUrl: this.site.main_url,
         },
       ).then(() => {
         const notificationId = NotificationsStore.show({
