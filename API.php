@@ -96,6 +96,7 @@ class API extends PluginApi
      *
      * @param string $token_auth
      * @param string $siteName
+     * @param string $siteUrl
      *
      * @return array In case of success: {"result":"success","message":"ok"}
      *
@@ -104,6 +105,7 @@ class API extends PluginApi
     public function signupSite(
         $token_auth,
         $siteName,
+        $siteUrl,
         $urls = null,
         $ecommerce = null,
         $siteSearch = null,
@@ -126,6 +128,7 @@ class API extends PluginApi
         $auth = StaticContainer::get(Auth::class);
         $auth->setTokenAuth($token_auth);
         $authResult = $auth->authenticate();
+        $urls = [$siteUrl];
 
         return Access::getInstance()->doAsSuperUser(function () use (
             $authResult,
